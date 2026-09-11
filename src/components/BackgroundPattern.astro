@@ -1,0 +1,25 @@
+---
+// Decorative tiled placeholder text, rotated across the whole viewport.
+// Swap `word` / line lengths once real copy exists.
+const word = "la";
+const lineLengths = [6, 5, 7, 4, 6, 5, 8, 4, 6, 5];
+const rows = 14;
+
+const lines = Array.from({ length: rows }, (_, i) =>
+  Array.from({ length: lineLengths[i % lineLengths.length] }, () => word).join(" ")
+);
+---
+
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+  <div
+    class="absolute left-1/2 top-1/2 flex w-[180vw] -translate-x-1/2 -translate-y-1/2 rotate-[-14deg] flex-col gap-9"
+  >
+    {
+      lines.map((line) => (
+        <span class="whitespace-nowrap font-serif text-[clamp(1.5rem,3.5vw,2.75rem)] capitalize text-white/7">
+          {line}
+        </span>
+      ))
+    }
+  </div>
+</div>

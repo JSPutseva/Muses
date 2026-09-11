@@ -1,0 +1,73 @@
+---
+// Layer 2: loose floating placeholder text (no card background),
+// sized off viewport height. Swap `lines` per entry for real copy later.
+interface TextBlock {
+  lines: string[];
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  rotate?: number;
+  align?: "left" | "center" | "right";
+  emphasize?: boolean;
+}
+
+const blocks: TextBlock[] = [
+  {
+    lines: ["Muses"],
+    top: "5vh",
+    left: "50%",
+    rotate: 0,
+    align: "center",
+    emphasize: true,
+  },
+  {
+    lines: ["Слезы луны падают на мои ресницы "],
+    bottom: "6vh",
+    right: "4vw",
+    rotate: 2,
+    align: "right",
+  },
+  {
+    lines: ["La la la la la la la la la"],
+    top: "22vh",
+    left: "3vw",
+    rotate: -3,
+    align: "left",
+  },
+];
+
+const alignClass = (align?: TextBlock["align"]) =>
+  align === "center" ? "items-center" : align === "right" ? "items-end" : "items-start";
+---
+
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+  {
+    blocks.map((block) => (
+      <div
+        class={`absolute flex flex-col gap-[1vh] whitespace-nowrap ${alignClass(block.align)}`}
+        style={{
+          top: block.top,
+          left: block.left,
+          right: block.right,
+          bottom: block.bottom,
+          transform: `translateX(${block.left === "50%" ? "-50%" : "0"}) rotate(${block.rotate ?? 0}deg)`,
+        }}
+      >
+        {block.lines.map((line, i) => (
+          <p
+            class={
+              block.emphasize
+                ? "m-0 font-serif text-[clamp(1.5rem,6vh,3.25rem)] leading-none sm:text-[clamp(2rem,8vh,5rem)] font-semibold text-white"
+                : `m-0 font-serif text-[clamp(1.25rem,5vh,2.75rem)] leading-none sm:text-[clamp(1.75rem,7vh,4.5rem)] ${
+                    i === 0 ? "font-semibold text-white/42" : "text-white/30"
+                  }`
+            }
+          >
+            {line}
+          </p>
+        ))}
+      </div>
+    ))
+  }
+</div>

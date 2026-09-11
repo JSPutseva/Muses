@@ -1,0 +1,48 @@
+---
+// Layer: faint archival illustrations behind the card and floating text.
+interface Photo {
+  src: string;
+  alt: string;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  // Literal Tailwind classes — smaller on phones, full size from `sm` up.
+  heightClass: string;
+}
+
+const photos: Photo[] = [
+  {
+    src: "/nimphe1.png",
+    alt: "",
+    left: "-4vw",
+    bottom: "0",
+    heightClass: "h-[30vh] sm:h-[62vh]",
+  },
+  {
+    src: "/nimphe2.png",
+    alt: "",
+    right: "-4vw",
+    bottom: "0",
+    heightClass: "h-[36vh] sm:h-[78vh]",
+  },
+];
+---
+
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+  {
+    photos.map((photo) => (
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        class={`absolute w-auto grayscale opacity-25 ${photo.heightClass}`}
+        style={{
+          top: photo.top,
+          left: photo.left,
+          right: photo.right,
+          bottom: photo.bottom,
+        }}
+      />
+    ))
+  }
+</div>

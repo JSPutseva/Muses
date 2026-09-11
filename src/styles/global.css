@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --color-bg-top: #4a4a4a;
+  --color-bg-bottom: #1c1c1c;
+}
+
+body {
+  background: radial-gradient(circle at 50% 35%, var(--color-bg-top) 0%, var(--color-bg-bottom) 75%);
+}
