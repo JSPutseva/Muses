@@ -60,10 +60,19 @@ import { languageOrder, type Lang } from "../data/museumEntries";
   let entryIndex = 0;
   let lang: Lang = languageOrder[0];
 
+  function currentOrder(): Lang[] {
+    if (museumEntries.length === 0) return languageOrder;
+    const main = museumEntries[entryIndex].main_lang;
+    return [main, ...languageOrder.filter(l => l !== main)];
+  }
+
   async function loadMuses() {
     const res = await fetch(`${API}/api/muses`, { cache: 'no-store' });
     museumEntries = await res.json();
-    if (museumEntries.length > 0) renderContent();
+    if (museumEntries.length > 0) {
+      lang = museumEntries[0].main_lang;
+      renderContent();
+    }
   }
 
   function renderContent() {
@@ -130,7 +139,8 @@ import { languageOrder, type Lang } from "../data/museumEntries";
         sectionIndex += 1;
       }
     }
-    setLanguage(languageOrder[Math.min(sectionIndex, languageOrder.length - 1)]);
+    const order = currentOrder();
+    setLanguage(order[Math.min(sectionIndex, order.length - 1)]);
   }
 
   window.addEventListener(
