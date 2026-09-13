@@ -54,7 +54,7 @@ import { languageOrder, type Lang } from "../data/museumEntries";
   const nextBtn = document.getElementById("nav-next") as HTMLButtonElement;
   const markers = Array.from(document.querySelectorAll<HTMLElement>(".lang-marker"));
 
-  type MuseEntry = { id: number; lines: Record<Lang, string[]>; order: number };
+  type MuseEntry = { id: number; lines: Record<Lang, string[]>; main_lang: Lang; order: number };
 
   let museumEntries: MuseEntry[] = [];
   let entryIndex = 0;
@@ -89,6 +89,7 @@ import { languageOrder, type Lang } from "../data/museumEntries";
 
     window.setTimeout(() => {
       entryIndex = (entryIndex + direction + museumEntries.length) % museumEntries.length;
+      lang = museumEntries[entryIndex].main_lang;
       renderContent();
 
       card.style.transition = "none";
